@@ -1,0 +1,3 @@
+# Example Trivy ignore file
+# Format: CVE-XXXX-YYYY [optional reason]
+#CVE-2020-0001 Reason: acceptable risk in lab
