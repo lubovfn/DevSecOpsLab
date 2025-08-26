@@ -1,0 +1,4 @@
+# Intentionally vulnerable base for lab demo
+FROM alpine:3.10
+RUN apk add --no-cache bash curl
+CMD ["bash","-lc","while true; do echo lab; sleep 3600; done"]
