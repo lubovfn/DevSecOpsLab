@@ -1,0 +1,16 @@
+trivy-scan.sh
+#!/usr/bin/env bash
+set -euo pipefail
+
+IMAGE="${1:-local/test-vuln:latest}"
+
+echo "[*] Building demo image: ${IMAGE}"
+docker build -f Dockerfile.vuln -t "${IMAGE}" .
+
+echo "[*] Trivy scan (image)"
+trivy image --ignore-unfixed --severity HIGH,CRITICAL --exit-code 1 "${IMAGE}" || {
+  echo "[!] Vulnerabilities found (expected in lab)"
+}
+
+echo "[*] Trivy scan (filesystem: manifests and Dockerfiles)"
+trivy fs --ignore-unfixed --severity HIGH,CRITICAL,MEDIUM . || true
